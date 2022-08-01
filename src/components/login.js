@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Text, View, Button, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native';
 import logo from '../../src/images/logo_yaly.png';
 import { useNavigate } from 'react-router-dom'
@@ -9,8 +9,8 @@ export default function Login() {
   const goToHomePage = () => {
     navigate('home',)
   }
-  const [user, onChangeUsername] = React.useState('');
-  const [password, onChangePassword] = React.useState('');
+  const [user, onChangeUsername] = useState('');
+  const [password, onChangePassword] = useState('');
 
   const onPressButton = () => postData()
   const getVersion = async () => {
@@ -139,7 +139,7 @@ export default function Login() {
           Đăng Nhập
         </Text>
       </TouchableOpacity>
-
+      {/* <h2>reminder project setup</h2> */}
     </View>
 
 
@@ -166,6 +166,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 20,
     alignItems: 'center',
+    //backgroundColor: '#ffa'
   },
   buttonText: {
     color: 'white',

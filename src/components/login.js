@@ -1,34 +1,39 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { Text, View, Button, StyleSheet, TextInput, Image, TouchableOpacity } from 'react-native';
 import logo from '../../src/images/logo_yaly.png';
 import { useNavigate } from 'react-router-dom'
+import Sites from './sites'
 
+const urlLogin = 'http://192.168.1.7:8082/api/Users/Login'
+const urlSite = 'http://192.168.1.7:8082/api/sites/GetListSite/YALY1'
 
 export default function Login() {
   const navigate = useNavigate()
   const goToHomePage = () => {
     navigate('home',)
   }
-  const [user, onChangeUsername] = useState('');
-  const [password, onChangePassword] = useState('');
+  const [loading, setLoading] = useState(false)
+  const [user, onChangeUsername] = useState('')
+  const [password, onChangePassword] = useState('')
+  const [sites, setSites] = useState([])
 
   const onPressButton = () => postData()
-  const getVersion = async () => {
-    try {
-      const response = await fetch('http://192.168.1.7:8082/api/yalyapp/GetVersion/YALY1/MOBILE', {
-        method: 'GET',
-        headers: {
-          "Content-Type": "application/json;charset=utf-8",
-          "Accept": "application/json",
-          "Access-Control-Allow-Origin": "*"
-        },
-      })
-      let json = await response.json()
-      console.log(json);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const getVersion = async () => {
+  //   try {
+  //     const response = await fetch('http://192.168.1.7:8082/api/yalyapp/GetVersion/YALY1/MOBILE', {
+  //       method: 'GET',
+  //       headers: {
+  //         "Content-Type": "application/json;charset=utf-8",
+  //         "Accept": "application/json",
+  //         "Access-Control-Allow-Origin": "*"
+  //       },
+  //     })
+  //     let json = await response.json()
+  //     console.log(json);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   const postData = async () => {
     if (user == '') return;
@@ -37,11 +42,11 @@ export default function Login() {
     if (users.length < 2) return
     var list = users[1].split('.')
     var site = list[0].toUpperCase()
-
+    setLoading(true)
     try {
       let dt = { "No_": users[0], "Password": getFullName(password), "Site": site };
       //console.log(dt);
-      const response = await fetch('http://192.168.1.7:8082/api/Users/Login', {
+      const response = await fetch(urlLogin, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -51,7 +56,7 @@ export default function Login() {
         body: JSON.stringify(dt)
       });
       let json = await response.json();
-
+      setLoading(false)
       if (response.status == 200) {
         console.log(json);
         console.log(json.no_);
@@ -64,6 +69,7 @@ export default function Login() {
       }
 
     } catch (error) {
+      setLoading(false)
       //alert('Đăng nhập không thành công')
       console.error(error);
     }
@@ -84,34 +90,32 @@ export default function Login() {
     return s
   }
 
-  const getSite = async () => {
+  const fetchSites = async () => {
+    setLoading(true)
     try {
-      let dt = { "No_": user, "Password": password, "Site": 'ABB' };
-
-      let formdata = new FormData()
-
-      formdata.append("No_", user);
-      formdata.append("Password", password);
-      formdata.append("Site", 'YALY');
-
-      console.log(JSON.stringify(dt));
-      const response = await fetch('http://192.168.1.7:8082/api/Users/Login', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          //"Access-Control-Allow-Origin": "*"
-        },
-        // body:JSON.stringify(dt)
-        body: formdata
-      });
-      const data = await response.json();
-      console.log(response.status);
+      const response = await fetch(urlSite)
+      const result = await response.json()
+     // console.log(result)
+      setLoading(false)
+      setSites(result)
     } catch (error) {
-      console.error(error);
-
+      setLoading(false)
+      console.log(error)
     }
   }
+  useEffect(() => {
+    fetchSites()
+  }, [])
+
+  // if (loading) {
+  //   return (
+  //     <main>
+  //       <div className="loading">
+  //         <h1>loading...</h1>
+  //       </div>
+  //     </main>
+  //   )
+  // }
   return (
     <View style={styles.body}>
       <View style={[{ marginBottom: 60 }]}>
@@ -124,16 +128,19 @@ export default function Login() {
         style={styles.input}
         onChangeText={onChangeUsername}
         value={user}
-        placeholderTextColor="#aaa"
-        placeholder='Tài khoản' />
+        //placeholderTextColor="#aaa"
+        placeholder='Tài khoản' 
+        />
       <TextInput
         style={styles.input}
         onChangeText={onChangePassword}
         value={password}
         secureTextEntry
         placeholder="Mật khẩu"
-        placeholderTextColor={'#aaa'}
+        //placeholderTextColor={'#aaa'}
       />
+      {/* <Sites sites={sites}  /> */}
+
       <TouchableOpacity style={[{ marginTop: 60, width: 320, }]} onPress={onPressButton}>
         <Text style={styles.buttonText}>
           Đăng Nhập

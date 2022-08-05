@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import "./NavBar.css";
 import { GoThreeBars } from "react-icons/go";
 import { AiOutlineClose } from "react-icons/ai";
+import { FaBars } from "react-icons/fa";
 import { AiOutlineMenu } from "react-icons/ai";
 import logo from '../../src/images/logo.png';
 
@@ -55,6 +56,17 @@ function NavBar() {
             <li className="nav-item">
               <NavLink
                 exact
+                to="/contact"
+                activeClassName="active"
+                className="nav-links"
+                onClick={handleClick}
+              >
+                Blog
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                exact
                 to="/login"
                 activeClassName="active"
                 className="nav-links"
@@ -65,7 +77,7 @@ function NavBar() {
             </li>
           </ul>
           <div className="nav-icon" onClick={handleClick} >
-            {click ? <AiOutlineClose /> : <AiOutlineMenu />}
+            {click ? <AiOutlineClose /> : <FaBars />}
             {/* <i className={click ? "fas fa-times" : "fas fa-bars"}></i> */}
           </div>
         </div>

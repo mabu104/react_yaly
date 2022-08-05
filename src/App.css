@@ -1,15 +1,22 @@
 * {
-    margin: 0;
-    padding: 0;
-  }
-  
-  body {
-    background-color: #b5fac7;
-  }
-  
-  .pages {
-    color: #316685;
-    text-align: center;
-    font-size: 3.5rem;
-    /* margin-top: 10%; */
-  }
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
+
+body {
+  /* background-color: #b5fac7; */
+  background-color: #ffffff;
+}
+
+.pages {
+  color: #316685;
+  text-align: center;
+  font-size: 3.5rem;
+  /* margin-top: 10%; */
+}
+
+main {
+  width: 100%;
+  padding: 20px;
+}

@@ -1,0 +1,63 @@
+.app-container {
+    display: flex;
+    flex-direction: column;
+    /* gap: 10px; */
+    padding: 1px;
+    /* flex: 1; */
+    height: 100vh;
+    /* text-align: center; */
+  }
+  
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th,
+  td {
+    border: 1px solid #ffffff;
+    text-align: left;
+    padding: 8px;
+    font-size: 32px;
+  }
+  
+  th {
+    background-color: rgb(117, 201, 250);
+  }
+  
+  td {
+    background-color: rgb(205, 235, 253);
+  }
+  
+  form {
+    display: flex;
+    gap: 5px;
+  }
+  
+  form td:last-child {
+    display: flex;
+    /* justify-content: space-evenly; */
+  }
+  
+  form * {
+    font-size: 28px;
+  }
+  .row-date-picker-container {
+    display: flex;
+    flex-direction: row;
+    /* align-items: flex-start; */
+    justify-content: flex-start;
+  }
+  .row-date-picker-container .react-datepicker-wrapper {
+    margin: 12px 0;
+    width: 50%;
+  }
+  .date-picker-container {
+    padding-left:5px;
+    /* height: 30px; */
+    width: 130px;
+    color: green;
+    /* border-radius: 8px; */
+    border-width: 1px;
+    border-color: #999;
+  }

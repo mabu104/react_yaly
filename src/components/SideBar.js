@@ -6,8 +6,16 @@ import {
     FaRegChartBar,
     FaCommentAlt,
     FaShoppingBag,
-    FaThList
+    FaTshirt,
+    FaThList,
+    FaRegUser
 }from "react-icons/fa";
+import {
+    AiOutlineHome,
+    AiOutlineAppstore,
+    AiOutlineSkin,
+    AiOutlinePieChart,
+}from "react-icons/ai";
 import { NavLink } from 'react-router-dom';
 import "./SideBar.css";
 
@@ -17,46 +25,46 @@ const SideBar= ({children})=> {
     const menuItem=[
         {
             path:"/",
-            name:"Home",
-            icon:<FaTh/>
+            name:"Trang chủ",
+            icon:<AiOutlineHome/>
         },
         {
             path:"/about",
-            name:"About",
-            icon:<FaUserAlt/>
+            name:"Sản phẩm",
+            icon:<AiOutlineAppstore/>
         },
         {
             path:"/contact",
-            name:"Contact",
-            icon:<FaCommentAlt/>
+            name:"Catalogue",
+            icon:<AiOutlineSkin/>
         },
         {
             path:"/blog",
-            name:"Blog",
-            icon:<FaRegChartBar/>
+            name:"Báo cáo",
+            icon:<AiOutlinePieChart/>
         },
 
         {
             path:"/login",
-            name:"Login",
-            icon:<FaUserAlt/>
+            name:"Tài khoản",
+            icon:<FaRegUser/>
         },
 
     ]
     return (
         <div className="sidebar_container">
-           <div style={{width: isOpen ? "200px" : "50px"}} className="sidebar">
-               <div className="top_section">
+           <div  className="sidebar">
+               {/* <div className="top_section">
                    <h1 style={{display: isOpen ? "block" : "none"}} className="logo">Logo</h1>
                    <div style={{marginLeft: isOpen ? "50px" : "0px"}} className="bars">
                        <FaBars onClick={toggle}/>
                    </div>
-               </div>
+               </div> */}
                {
                    menuItem.map((item, index)=>(
                        <NavLink to={item.path} key={index} className="link" activeclassName="active">
                            <div className="icon">{item.icon}</div>
-                           <div style={{display: isOpen ? "block" : "none"}} className="link_text">{item.name}</div>
+                           <div className="link_text">{item.name}</div>
                        </NavLink>
                    ))
                }

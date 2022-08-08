@@ -1,8 +1,9 @@
+
 import React, { useState, useEffect, useContext, useMemo } from 'react'
-import { Text, View, Button, StyleSheet, TextInput, Image, TouchableOpacity, Icon } from 'react-native';
+import { Text, View, Button, StyleSheet, TextInput, Image, TouchableOpacity, Icon,Picker } from 'react-native';
 import logo from '../../src/images/logo.png';
 import { useNavigate, useLocation } from 'react-router-dom'
-import { FaUserAlt, FaUser, FaHome,FaPhoneAlt,FaRegEnvelope } from "react-icons/fa";
+import { FaUserAlt, FaUser, FaHome, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 import { UserContext } from '../contexts/UserContext';
 const urlLogin = 'http://192.168.1.7:8082/api/Users/Login'
 const urlSite = 'http://192.168.1.7:8082/api/sites/GetListSite/YALY1'
@@ -18,6 +19,7 @@ export default function Login() {
   const [user, setUser] = useState(state.user)
 
   const [sites, setSites] = useState([])
+  const [value, setValue] = useState(null);
 
 
   const onPressLoginButton = () => fetchLogin()
@@ -131,7 +133,7 @@ export default function Login() {
           <Text style={styles.infoText}></Text>
         </View>
         <View style={styles.infoContainer}>
-          <FaRegEnvelope style={styles.infoIcon} />
+          <FaEnvelope style={styles.infoIcon} />
           <Text style={styles.infoText}></Text>
         </View>
         <TouchableOpacity style={[{ marginTop: 40, width: 320, }]} onPress={onPressLogoutButton}>
@@ -175,7 +177,22 @@ export default function Login() {
         placeholderTextColor="#555"
       //placeholderTextColor={'#aaa'}
       />
-      {/* <Sites sites={sites}  /> */}
+      {/* <select value={value} onChange={event => setValue(event.target.value)}>
+        {sites.map((option) => (
+          <option value={option.reC_SHOP}>{option.shoP_NAME}</option>
+        ))}
+      </select> */}
+      <Picker
+        selectedValue={value}
+        style={{ height: 50, width: 320,paddingHorizontal:10}}
+        onValueChange={(itemValue, itemIndex) => setValue(itemValue)}
+      >
+        {sites.map((p) => (
+          <Picker.Item value={p.reC_SHOP} label={p.shoP_NAME} />
+        ))}
+        {/* <Picker.Item label="Java" value="java" />
+        <Picker.Item label="JavaScript" value="js" /> */}
+      </Picker>
       <TouchableOpacity style={[{ marginTop: 70, width: 320, }]} onPress={onPressLoginButton}>
         <Text style={styles.loginButton}>
           Đăng Nhập
@@ -248,10 +265,10 @@ const styles = StyleSheet.create({
 
   infoContainer: {
     flexDirection: 'row',
-    // borderRadius: 8,
-    // borderWidth: 1,
-    // borderColor: '#888',
-    //backgroundColor: 'grey',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#888',
+    backgroundColor: '#ebebf5',
     height: 50,
     width: 320,
     alignItems: 'center',
@@ -260,14 +277,14 @@ const styles = StyleSheet.create({
   },
   infoIcon: {
     color: '#9ca3da',
-    height: 30,
-    width: 30,
-    marginRight: 20,
+    height: 25,
+    width: 25,
+    marginRight: 10,
     marginLeft: 10
   },
   infoText: {
     //color: 'white',
-    fontSize: 25,
+    fontSize: 20,
     textAlign: 'center',
     fontFamily: 'Roboto',
     //borderRadius: 8,

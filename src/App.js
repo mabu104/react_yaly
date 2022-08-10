@@ -18,7 +18,7 @@ function App() {
     password: '',
     logged: false,
     user: { user: '', no: '', recSeller: 0, status: 0 },
-    site: { code: '', id: 0, name: '' }
+    site: { code: '', recShop: 0, name: '' }
   });
   return (
 

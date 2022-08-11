@@ -8,6 +8,7 @@ import { View, Text, StyleSheet, TouchableOpacity,ScrollView } from "react-nativ
 import { UserContext } from '../contexts/UserContext';
 import { AiOutlineSearch } from "react-icons/ai";
 
+
 import Moment from 'moment';
 const urlSearchOrder = 'http://192.168.1.7:8082/api/Order/GetListOrder/YALY1';
 registerLocale('vi', vi)
@@ -16,11 +17,17 @@ export const About = () => {
   const { state, dispatch } = useContext(UserContext);
   const [site, setSite] = useState(state.site)
   const [user, setUser] = useState(state.user)
+  const [logged, setLogged] = useState(state.logged)
 
   const column = [{ Header: 'Id', accessor: 'id' }, { Header: 'Name', accessor: 'name' }, { Header: 'Phone', accessor: 'phone' }]
   const [data, setData] = useState([]);
   const [fromDate, setFromDate] = useState(new Date());
   const [toDate, setTotDate] = useState(new Date());
+
+
+  const handleClick = (id) => {
+    console.log(id);
+  };
   const search = () => {
     fetchSearchOrder()
   }
@@ -45,12 +52,18 @@ export const About = () => {
       });
       let json = await response.json();
       if (response.status == 200) {
-        setData(json)
-
+        setData(json)       
       }
     } catch (e) {
 
     }
+  }
+  if(!logged){
+    return(
+      <div>
+      <h1>Đơn hàng</h1>
+    </div>
+    );
   }
   return (
     <View style={[{ padding: 5 }]}>
@@ -59,7 +72,6 @@ export const About = () => {
         <Text style={{ paddingTop: 5 }}>Từ ngày </Text>
         <View>
           <DatePicker
-
             className='date-picker-container'
             selected={fromDate}
             locale="vi"
@@ -94,7 +106,7 @@ export const About = () => {
             </tr>
           </thead>
           <tbody>
-            {data.map((contact) => (
+            {data.map((contact, index) => (
               <tr key={contact.tickeT_CODE}>
                 <td >{contact.tickeT_CODE}</td>
                 <td >{contact.customeR_NAME}</td>
@@ -102,7 +114,8 @@ export const About = () => {
                 <td >{Moment(contact.finisH_DATE).format('DD/MM/YYYY')}</td>
                 <td>
                   <button
-                    type="button"
+                    onClick={() => handleClick(index)}
+                   // type="button"
                   >
                     Edit
                   </button>

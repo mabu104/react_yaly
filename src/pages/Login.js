@@ -1,10 +1,12 @@
 
 import React, { useState, useEffect, useContext, useMemo } from 'react'
-import { Text, View, Button, StyleSheet, TextInput, Image, TouchableOpacity, Icon,Picker } from 'react-native';
+import { Text, View, Button, StyleSheet, TextInput, Image, TouchableOpacity, Icon, Picker } from 'react-native';
 import logo from '../../src/images/logo.png';
 import { useNavigate, useLocation } from 'react-router-dom'
 import { FaUserAlt, FaUser, FaHome, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 import { UserContext } from '../contexts/UserContext';
+import axios from 'axios';
+
 const urlLogin = 'http://192.168.1.7:8082/api/Users/Login'
 const urlSite = 'http://192.168.1.7:8082/api/sites/GetListSite/YALY1'
 
@@ -19,12 +21,15 @@ export default function Login() {
   const [user, setUser] = useState(state.user)
 
   const [sites, setSites] = useState([])
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState();
 
 
   const onPressLoginButton = () => fetchLogin()
   const onPressLogoutButton = () => {
     setLogged(false)
+    let newSate = state;
+    newSate.logged = false;
+    dispatch(newSate)
   }
 
   const fetchLogin = async () => {
@@ -35,43 +40,57 @@ export default function Login() {
     var list = users[1].split('.')
     var siteCode = list[0].toUpperCase()
     setLoading(true)
-    try {
-      let dt = { "No_": users[0], "Password": getFullName(password), "Site": siteCode };
-      //console.log(dt);
-      const response = await fetch(urlLogin, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          //"Access-Control-Allow-Origin": "*"
-        },
-        body: JSON.stringify(dt)
-      });
-      let json = await response.json();
-      setLoading(false)
-      if (response.status == 200) {
-        console.log(json);
-        console.log(json.no_);
-        console.log(json.rec_Seller);
-        setLogged(true)
-        var u = { name: json.name, no: json.no_, recSeller: json.rec_Seller, status: json.status }
-        setUser(u)
-        var s = getSite(siteCode)
-        setSite(s)
-        dispatch({
-          userName: userName,
-          password: password,
-          logged: true,
-          site: s,
-          user: u
-        })
-      }
+    // try {
+    //   let dt = { "No_": users[0], "Password": getFullName(password), "Site": siteCode };
+    //   const response = await fetch(urlLogin, {
+    //     method: 'POST',
+    //     headers: {
+    //       'Accept': 'application/json',
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify(dt)
+    //   });
+    //   let json = await response.json();
+    //   setLoading(false)
+    //   if (response.status == 200) {
+    //     setLogged(true)
+    //     var u = { name: json.name, no: json.no_, recSeller: json.rec_Seller, status: json.status }
+    //     setUser(u)
+    //     var s = getSite(siteCode)
+    //     setSite(s)
+    //     dispatch({
+    //       userName: userName,
+    //       password: password,
+    //       logged: true,
+    //       site: s,
+    //       user: u
+    //     })
+    //   }
 
-    } catch (error) {
-      setLoading(false)
-      //alert('Đăng nhập không thành công')
-      console.error(error);
-    }
+    // } catch (error) {
+    //   setLoading(false)
+    //   console.error(error);
+    // }
+    let dt = { "No_": users[0], "Password": getFullName(password), "Site": siteCode };
+    axios.post(urlLogin, dt)
+      .then(response => {
+        if (response.status == 200) {
+          let json = response.data;
+          setLogged(true)
+          var u = { name: json.name, no: json.no_, recSeller: json.rec_Seller, status: json.status }
+          setUser(u)
+          var s = getSite(siteCode)
+          setSite(s)
+          dispatch({
+            userName: userName,
+            password: password,
+            logged: true,
+            site: s,
+            user: u
+          })
+        }
+
+      })
   }
   const getSite = (siteName) => {
     for (var i = 0; i < sites.length; i++) {
@@ -98,18 +117,21 @@ export default function Login() {
   }
 
   const fetchSites = async () => {
-    try {
-      const response = await fetch(urlSite)
-      const result = await response.json()
-      setSites(result)
-    } catch (error) {
-      console.log(error)
-    }
+    // try {
+    //   const response = await fetch(urlSite)
+    //   const result = await response.json()
+    //   setSites(result)
+    // } catch (error) {
+    //   console.log(error)
+    // }
+    axios.get(urlSite)
+      .then(response => {
+        const result = response.data;
+        setSites(result)
+        //console.log(result)
+      })
+      .catch(error => console.log(error));
   }
-  // useEffect(() => {
-  //   fetchSites()
-  //   console.log('fetch')   
-  // }, [])
   useMemo(() => {
     fetchSites()
   }, [])
@@ -141,15 +163,7 @@ export default function Login() {
             Đăng xuất
           </Text>
         </TouchableOpacity>
-        {/* <Text style={styles.buttonText}>
-          Đăng Nhập
-        </Text> */}
       </View>
-      // <main>
-      //   <div >
-
-      //   </div>
-      // </main>
     )
   }
   return (
@@ -177,28 +191,21 @@ export default function Login() {
         placeholderTextColor="#555"
       //placeholderTextColor={'#aaa'}
       />
-      {/* <select value={value} onChange={event => setValue(event.target.value)}>
-        {sites.map((option) => (
-          <option value={option.reC_SHOP}>{option.shoP_NAME}</option>
-        ))}
-      </select> */}
       <Picker
         selectedValue={value}
-        style={{ height: 50, width: 320,paddingHorizontal:10}}
+        style={{ height: 50, width: 320, paddingHorizontal: 10 }}
         onValueChange={(itemValue, itemIndex) => setValue(itemValue)}
       >
         {sites.map((p) => (
-          <Picker.Item value={p.reC_SHOP} label={p.shoP_NAME} />
+          <Picker.Item key={p.reC_SHOP} value={p.reC_SHOP} label={p.shoP_NAME} />
         ))}
-        {/* <Picker.Item label="Java" value="java" />
-        <Picker.Item label="JavaScript" value="js" /> */}
+
       </Picker>
       <TouchableOpacity style={[{ marginTop: 70, width: 320, }]} onPress={onPressLoginButton}>
         <Text style={styles.loginButton}>
           Đăng Nhập
         </Text>
       </TouchableOpacity>
-      {/* <h2>reminder project setup</h2> */}
     </View>
 
 
@@ -206,7 +213,6 @@ export default function Login() {
 }
 const styles = StyleSheet.create({
   input: {
-
     // borderColor: '#777',
     fontFamily: 'Roboto',
     fontSize: 20,

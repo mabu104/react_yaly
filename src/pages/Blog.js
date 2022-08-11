@@ -99,7 +99,7 @@ export const Blog = () => {
           }}
           options={{
             plugins: {
-              legend: { display: true },
+              legend: { display: true,position:'left' },
               datalabels: {
                 formatter: (value, context) =>{
                   const dataPoints=context.chart.data.datasets[0].data;
@@ -138,7 +138,7 @@ export const Blog = () => {
             ]
           }}
           height={400}
-          width={500}
+          width={350}
 
           options={{
             responsive: false,

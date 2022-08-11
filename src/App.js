@@ -23,7 +23,7 @@ function App() {
   return (
 
     <Router>
-      <SideBar>
+      <SideBar children={null} >
         {/* <NavBar /> */}
         {/* <div className="pages"> */}
         <UserContext.Provider value={{ state, dispatch }}>

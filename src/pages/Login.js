@@ -2,13 +2,13 @@
 import React, { useState, useEffect, useContext, useMemo } from 'react'
 import { Text, View, Button, StyleSheet, TextInput, Image, TouchableOpacity, Icon, Picker } from 'react-native';
 import logo from '../../src/images/logo.png';
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation,Navigate } from 'react-router-dom'
 import { FaUserAlt, FaUser, FaHome, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 import { UserContext } from '../contexts/UserContext';
-import axios from 'axios';
+import axios from '../utils/request';
 
-const urlLogin = 'http://192.168.1.7:8082/api/Users/Login'
-const urlSite = 'http://192.168.1.7:8082/api/sites/GetListSite/YALY1'
+const urlLogin = '/api/Users/Login'
+const urlSite = '/api/sites/GetListSite/YALY1'
 
 export default function Login() {
   const { state, dispatch } = useContext(UserContext);
@@ -40,57 +40,26 @@ export default function Login() {
     var list = users[1].split('.')
     var siteCode = list[0].toUpperCase()
     setLoading(true)
-    // try {
-    //   let dt = { "No_": users[0], "Password": getFullName(password), "Site": siteCode };
-    //   const response = await fetch(urlLogin, {
-    //     method: 'POST',
-    //     headers: {
-    //       'Accept': 'application/json',
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify(dt)
-    //   });
-    //   let json = await response.json();
-    //   setLoading(false)
-    //   if (response.status == 200) {
-    //     setLogged(true)
-    //     var u = { name: json.name, no: json.no_, recSeller: json.rec_Seller, status: json.status }
-    //     setUser(u)
-    //     var s = getSite(siteCode)
-    //     setSite(s)
-    //     dispatch({
-    //       userName: userName,
-    //       password: password,
-    //       logged: true,
-    //       site: s,
-    //       user: u
-    //     })
-    //   }
-
-    // } catch (error) {
-    //   setLoading(false)
-    //   console.error(error);
-    // }
     let dt = { "No_": users[0], "Password": getFullName(password), "Site": siteCode };
-    axios.post(urlLogin, dt)
-      .then(response => {
-        if (response.status == 200) {
-          let json = response.data;
-          setLogged(true)
-          var u = { name: json.name, no: json.no_, recSeller: json.rec_Seller, status: json.status }
-          setUser(u)
-          var s = getSite(siteCode)
-          setSite(s)
-          dispatch({
-            userName: userName,
-            password: password,
-            logged: true,
-            site: s,
-            user: u
-          })
-        }
-
+    try {
+      const response=await axios.post(urlLogin, dt);
+      let json =  response.data;
+      setLogged(true)
+      var u = { name: json.name, no: json.no_, recSeller: json.rec_Seller, status: json.status }
+      setUser(u)
+      var s = getSite(siteCode)
+      setSite(s)
+      dispatch({
+        userName: userName,
+        password: password,
+        logged: true,
+        site: s,
+        user: u
       })
+      
+    } catch (err) {
+      console.log(err)
+    }
   }
   const getSite = (siteName) => {
     for (var i = 0; i < sites.length; i++) {
@@ -124,13 +93,12 @@ export default function Login() {
     // } catch (error) {
     //   console.log(error)
     // }
-    axios.get(urlSite)
-      .then(response => {
-        const result = response.data;
-        setSites(result)
-        //console.log(result)
-      })
-      .catch(error => console.log(error));
+    try {
+      const response = await axios.get(urlSite);
+      setSites(response.data)
+    } catch (err) {
+      console.log(err)
+    }
   }
   useMemo(() => {
     fetchSites()
@@ -138,6 +106,7 @@ export default function Login() {
 
   if (logged) {
     return (
+      // <Navigate to="/home" />
       <View style={styles.body}>
         <View style={styles.infoAvatar}>
           <FaUser style={styles.infoAvatarIcon} />

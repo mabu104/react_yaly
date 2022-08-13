@@ -14,7 +14,7 @@ import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-ChartJS.register(ArcElement,CategoryScale,
+ChartJS.register(ArcElement, CategoryScale,
   LinearScale,
   BarElement,
   ChartDataLabels,
@@ -55,8 +55,8 @@ export const Blog = () => {
     }
   }
   return (
-    <View style={{ alignItems: 'center',padding:5 }}>
-      <View style={[{ flexDirection: 'row', marginLeft: 5}]} >
+    <View style={{ alignItems: 'center', padding: 5 }}>
+      <View style={[{ flexDirection: 'row', marginLeft: 5 }]} >
         <Text style={{ paddingTop: 5 }}>Từ ngày </Text>
         <View >
           <DatePicker
@@ -99,18 +99,32 @@ export const Blog = () => {
           }}
           options={{
             plugins: {
-              legend: { display: true,position:'left' },
+              legend: { display: true, position: 'top' },
               datalabels: {
-                formatter: (value, context) =>{
-                  const dataPoints=context.chart.data.datasets[0].data;
-                  function totalSum(total,dataPoint){
-                    return total+dataPoint;
+                formatter: (value, context) => {
+                  const dataPoints = context.chart.data.datasets[0].data;
+                  function totalSum(total, dataPoint) {
+                    return total + dataPoint;
                   }
-                  const totalValue=dataPoints.reduce(totalSum,0);
-                  const percentTagetValue=(value/totalValue*100).toFixed(1);
+                  const totalValue = dataPoints.reduce(totalSum, 0);
+                  function totalPercent() {
+                    let percents = 0;
+                    for (let i = 0; i < dataPoints.length - 1; i++) {
+                      percents += parseFloat((dataPoints[i] / totalValue * 100).toFixed(1));
+                    }
+                    return parseFloat((100 - percents).toFixed(1));
+                  }
+                  let percentTagetValue;
+                  if (value != dataPoints[dataPoints.length - 1]) {
+                    percentTagetValue = (value / totalValue * 100).toFixed(1);
+                  }
+                  else {
+                    percentTagetValue = totalPercent();
+
+                  }
                   return `${percentTagetValue}%`;
                 },
-       
+
                 //display: false,
                 color: '#ffffff'
               }
@@ -145,7 +159,7 @@ export const Blog = () => {
             plugins: {
               legend: { display: false },
               datalabels: {
-                display: false 
+                display: false
               }
             },
             title: {

@@ -66,9 +66,9 @@ export const About = () => {
     );
   }
   return (
-    <View style={[{ padding: 5 }]}>
+    <View style={[{ paddingTop: 5 }]}>
       {/* <div className="app-container"> */}
-      <View style={[{ flexDirection: 'row', marginLeft: 5}]} >
+      <View style={[{ flexDirection: 'row'}]} >
         <Text style={{ paddingTop: 5 }}>Từ ngày </Text>
         <View>
           <DatePicker
@@ -92,7 +92,6 @@ export const About = () => {
         </TouchableOpacity>
       </View>
       {/* <View style={{border: collapse}}>
-
       </View> */}
       {/* <ScrollView  style={{ height: "100vh" }}> */}
         <table>

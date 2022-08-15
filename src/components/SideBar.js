@@ -29,23 +29,23 @@ const SideBar= ({children})=> {
             icon:<AiOutlineHome/>
         },
         {
-            path:"/about",
-            name:"Sản phẩm",
+            path:"/order",
+            name:"Đơn hàng",
             icon:<AiOutlineAppstore/>
         },
         {
-            path:"/contact",
+            path:"/catalogue",
             name:"Catalogue",
             icon:<AiOutlineSkin/>
         },
         {
-            path:"/blog",
+            path:"/dashboard",
             name:"Báo cáo",
             icon:<AiOutlinePieChart/>
         },
 
         {
-            path:"/login",
+            path:"/user",
             name:"Tài khoản",
             icon:<FaRegUser/>
         },

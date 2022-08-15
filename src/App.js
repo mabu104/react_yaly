@@ -1,16 +1,16 @@
 import React, { useEffect, useState, useContext, createContext, Navigate } from "react";
 import { View, StyleSheet, SafeAreaView } from "react-native";
 import Login from "./pages/Login";
-import { Home } from "./pages/Home";
-import { About } from "./pages/About";
-import { Contact } from "./pages/Contact";
-import { Blog } from "./pages/Blog";
+import Home from "./pages/Home";
+import Order from "./pages/Order";
+import Catalogue from "./pages/Catalogue";
+import Dashboard from "./pages/Dashboard";
 import { NotFound } from "./pages/NotFound";
-import SideBar from './components/SideBar';
-import NavBar from "./components/NavBar";
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 import "./App.css";
 import { UserContext } from "./contexts/UserContext";
+import { Layout } from "./pages/Layout";
+import User from "./pages/User";
 //import { Logged } from './pages/UserDetails';
 //export const UserContext = createContext();
 function App() {
@@ -24,18 +24,19 @@ function App() {
   return (
 
     <Router>
-      <SideBar children={null} >
-        <UserContext.Provider value={{ state, dispatch }}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/*" element={<div>Not found</div>} />
-          </Routes>
-        </UserContext.Provider>
-      </SideBar>
+      <UserContext.Provider value={{ state, dispatch }}>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Layout />} >
+            <Route index element={<Home />} />
+            <Route path="/order" element={<Order />} />
+            <Route path="/catalogue" element={<Catalogue />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/user" element={<User />} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </UserContext.Provider>
     </Router >
 
   );

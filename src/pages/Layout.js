@@ -1,23 +1,18 @@
-import React from "react";
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
-import { About } from "./About";
-import { Contact } from "./Contact";
-import { Blog } from "./Blog"; 
-import { User } from "./User"; 
+import React, { useContext, useState, useMemo } from "react";
+import { Route, BrowserRouter as Router, Routes, Navigate, Outlet } from 'react-router-dom'
 import SideBar from '../components/SideBar';
+import { UserContext } from '../contexts/UserContext';
 
-import { Home } from "./Home";
+import "./Layout.css"
 
 export const Layout = () => {
+  const { state, dispatch } = useContext(UserContext);
+  const [logged, setLogged] = useState(state.logged)
   return (
-    <SideBar  >
-    <Routes>
-    <Route path="/home" element={<Home />} />
-      <Route path="/about" element={<About />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/blog" element={<Blog />} />
-      <Route path="/user" element={<User />} />
-    </Routes>
-</SideBar>
+    (!logged) ? <Navigate to="/login" replace={true} /> :
+      <div className="layout-container">
+        <SideBar />
+        <Outlet />
+      </div>
   );
 };

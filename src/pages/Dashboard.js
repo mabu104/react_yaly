@@ -24,7 +24,7 @@ ChartJS.register(ArcElement, CategoryScale,
 );
 const urlSearchDashboard = 'http://192.168.1.7:8082/api/AppReport/GetListReportInComeG/YALY1'
 
-export const Blog = () => {
+export const Dashboard = () => {
   const [reportData, setData] = useState([]);
   const [fromDate, setFromDate] = useState(new Date());
   const [toDate, setTotDate] = useState(new Date());
@@ -55,7 +55,10 @@ export const Blog = () => {
     }
   }
   return (
-    <View style={{ alignItems: 'center', padding: 5 }}>
+    <View style={{
+      alignItems: 'center', padding: 5,
+      flex: 1
+    }}>
       <View style={[{ flexDirection: 'row', marginLeft: 5 }]} >
         <Text style={{ paddingTop: 5 }}>Từ ngày </Text>
         <View >
@@ -66,7 +69,7 @@ export const Blog = () => {
             dateFormat="dd/MM/yyyy"
             onChange={date => setFromDate(date)} />
         </View>
-        <Text style={{ paddingTop: 5 }}>Đến ngày </Text>
+        <Text style={{ paddingTop: 5, }}>Đến ngày </Text>
         <View>
           <DatePicker
             className='date-picker-container'
@@ -75,8 +78,8 @@ export const Blog = () => {
             dateFormat="dd/MM/yyyy"
             onChange={date => setTotDate(date)} />
         </View>
-        <TouchableOpacity onPress={search}>
-          <MdInsertChartOutlined style={styles.icon} />
+        <TouchableOpacity style={styles.button} onPress={search}>
+          <Text >Xem </Text>
         </TouchableOpacity>
       </View>
       {reportData.length == 0 ? <div /> : (<div >
@@ -173,34 +176,18 @@ export const Blog = () => {
   );
 };
 
+export default Dashboard;
+
 const styles = StyleSheet.create({
-  icon: {
-    color: "#565d94",
-    height: 25,
-    width: 25,
-    marginLeft: 5
-  },
-  infoContainer: {
-    flexDirection: 'row',
-    borderRadius: 8,
+  button: {
+    //borderRadius: 3,
     borderWidth: 1,
     borderColor: '#888',
-    backgroundColor: '#ebebf5',
-    height: 50,
-    width: 320,
-    alignItems: 'center',
+    backgroundColor: '#eee',
+    height: 20,
+    width: 60,
     textAlign: 'center',
-    marginBottom: 20
-  },
-
-  infoText: {
-    //color: 'white',
-    fontSize: 20,
-    textAlign: 'center',
-    fontFamily: 'Roboto',
-    //borderRadius: 8,
-    //padding: 15,
-    //backgroundColor: '#f17434'
+    marginTop: 5
   },
 
 });

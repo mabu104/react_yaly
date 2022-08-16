@@ -1,79 +1,155 @@
+.body-container{
+  display: flex;
+  flex-direction: column;
+  
+}
+.app-bar{
+  display: none;
+  height: 50px;
+  width: 100%;
+  background: #e2e4e6;
+  flex-direction: row;
+}
 .sidebar_container {
   display: flex;
+  /* width: 220px; */
+  /* background: #f1f; */
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .sidebar {
-  /* background: #000; */
-  background: #565d94;
-  color: #fff;
+  /* background: #fff; */
+  /* background: #565d94; */
+  /* background: #f2f4f6; */
+  background: #e2e4e6;
+  padding:0px 25px ;
+  color: #000;
   height: 100vh;
   /* height: 100%; */
-  width: 200px;
+  width: 170px;
+  
   /* transition: all 0.5s; */
 }
 
 .top_section {
   display: flex;
   align-items: center;
-  padding: 20px 15px;
+  height: 50px;
+  padding-left: 5px;
 }
 
 .logo {
-  font-size: 21px;
+  height: 40px;
+  width: 40px;
+  display: none;
+}
+.logo-app-bar {
+  height: 40px;
+  width: 40px;
 }
 
 .bars {
+  display: none;
+  /* font-size: 25px;
+  margin-left: 50px; */
+}
+.name {
   display: flex;
-  font-size: 25px;
-  margin-left: 50px;
+  font-size: 28px;
+  color: #f17434;
+}
+.name-app-bar {
+  display: flex;
+  font-size: 28px;
+  color: #f17434;
+}
+
+.divider{
+  height: 1px;
+  width: 100%;
+  background: #d7d7d7;
+  /* margin-top: 20px; */
+  margin-bottom: 10px;
 }
 
 .link {
   display: flex;
-  color: #fff;
-  padding: 10px 15px;
+  color: #222736;
+  padding: 10px 10px;
   gap: 15px;
   transition: all 0.5s;
+  border-radius: 5px;
+  margin-top: 10px;
 }
 
 .link:hover {
   /* background:#1a83ff; */
   /* background: #f58434; */
-  background: #9ca3da;
+  /* background: #9ca3da; */
+  background: #222736;
   color: #fff;
   transition: all 0.5s;
 }
 
 .active {
   /* background: #f58434; */
-  background: #9ca3da;
+  /* background: #9ca3da; */
+  background: #222736;
   color: #fff;
 }
 
-.icon,
+.icon {
+  font-size: 19px;
+}
 .link_text {
-  font-size: 20px;
+  font-size: 18px;
+  font-family: Arial;
 }
 
-@media screen and (max-width: 960px){
+@media screen  and (min-width: 400px) and (max-width: 960px){
   .sidebar {
-    background: #565d94;
-    color: #fff;
-    height: 100vh;
     width: 50px;
-    /* transition: all 0.5s; */
+    padding-left: 5px;
+    padding-right: 5px;
+    align-items: center;
+  }
+  .link{
+    padding-left: 15px;
   }
   .link_text {
     font-size: 20px;
     display: none;
   }
-
+  .bars {
+    display: none;
+  }
+  .name {
+    display: none;
+  }
+  .logo {
+    height: 40px;
+    width: 40px;
+    display: block;
+  }
 
 }
-/* @media screen and (max-width: 400px) {
+@media screen and (max-width: 400px) {
   .sidebar_container {
     display: none;
   }
-
-
-} */
+  .bars {
+    display: block;
+  }
+  .name {
+    display: none;
+  }
+  .app-bar{
+    display: flex;
+    height: 50px;
+    width: 100%;
+    background: #e2e4e6;
+    flex-direction: row;
+  }
+}

@@ -11,10 +11,10 @@ const urlSite = '/api/sites/GetListSite/YALY1'
 
 export default function Login() {
   const { state, dispatch } = useContext(UserContext);
-  const [userName, onChangeUsername] = useState(state.userName)
-  const [password, onChangePassword] = useState(state.password)
-  // const [userName, onChangeUsername] = useState('y0017@abb.com')
-  // const [password, onChangePassword] = useState('1')
+  // const [userName, onChangeUsername] = useState(state.userName)
+  // const [password, onChangePassword] = useState(state.password)
+  const [userName, onChangeUsername] = useState('y0017@abb.com')
+  const [password, onChangePassword] = useState('1')
   const [logged, setLogged] = useState(state.logged)
   const [site, setSite] = useState(state.site)
   const [user, setUser] = useState(state.user)

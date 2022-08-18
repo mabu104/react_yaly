@@ -139,11 +139,11 @@ export default function Login() {
           onChange={(e) => { onChangePassword(e.target.value) }}>
         </input>
       </div>
-      <select className='site-container' value={value} onChange={(event) => setValue(event.target.value)}>
+      {/* <select className='site-container' value={value} onChange={(event) => setValue(event.target.value)}>
         {sites.map((site) => (
           <option value={site.reC_SHOP} key={site.reC_SHOP}>{site.shoP_NAME}</option>
         ))}
-      </select>
+      </select> */}
       <button className='login-button' onClick={onPressLoginButton}>
         Đăng nhập
       </button>

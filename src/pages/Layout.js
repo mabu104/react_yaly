@@ -1,32 +1,33 @@
-import React, { useContext, useState, useMemo } from "react";
-import { Route, BrowserRouter as Router, Routes, Navigate, Outlet } from 'react-router-dom'
+import React, { useContext, useState, useMemo,useLayoutEffect,useEffect  } from "react";
+import { Navigate, Outlet } from 'react-router-dom'
 import SideBar from '../components/SideBar';
+import ResponsiveNav from '../components/ResponsiveNav';
 import { UserContext } from '../contexts/UserContext';
-import {
-  FaBars
-} from "react-icons/fa";
+import { AiOutlineMenu } from "react-icons/ai";
+
 
 import "./Layout.css"
 
 export const Layout = () => {
   const { state, dispatch } = useContext(UserContext);
   const [logged, setLogged] = useState(state.logged)
-  const [sidebar, setSidebar] = useState(false);
-  const showSidebar = () => setSidebar(!sidebar);
- 
+  const [showSidebar, setShowSidebar] = useState(false);
+  const [miniSidebar, setMiniSidebar] = useState(false);
+  const clickMenu = () => {
+    if(window.innerWidth<700) setShowSidebar(!showSidebar);
+    else setMiniSidebar(!miniSidebar);
+  }
+  if (!logged) return <Navigate to="/login" replace={true} />;
   return (
-    (!logged) ? <Navigate to="/login" replace={true} /> :
-      <div className="layout-container">
-        <SideBar />
-        <div className="body-container">
-          <div className="appBar">
-            <FaBars className="icon-menu"></FaBars>
-            <h1 className="name-bar">Yaly Couture</h1>
-            <div/>
-          </div>
-
-          <Outlet />
-        </div>
+    <div className="layout-container">
+      <SideBar mini={miniSidebar}/>
+      <div className="body-container">
+        <a className="appBar">
+          <AiOutlineMenu className="icon-menu" onClick={clickMenu}  ></AiOutlineMenu>
+        </a>      
+        <Outlet />
+        <ResponsiveNav show={showSidebar} setShow={setShowSidebar} />
       </div>
+    </div>
   );
 };

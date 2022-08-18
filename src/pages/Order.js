@@ -83,7 +83,7 @@ const Order = () => {
             <th>Mã</th>
             <th>Tên khách</th>
             <th>Sản phẩm </th>
-            <th>Ngày hoàn thành </th>
+            <th>Ngày HT </th>
             <th></th>
           </tr>
         </thead>
@@ -110,8 +110,6 @@ const Order = () => {
         </tbody>
       </table>
     </div>
-    //</View>
-
   );
 };
 export default Order;

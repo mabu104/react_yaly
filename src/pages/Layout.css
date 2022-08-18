@@ -11,18 +11,29 @@
 }
 
 .appBar {
-  display: none;
+  display: flex;
+  height: 36px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 7px 10px;
+  border-bottom: 1px solid #dee2e6;
+}
+/* .navbar {
+  display: flex;
   height: 40px;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  padding-left: 5px;
-  background: #e2e4e6;
-}
-.icon-menu{
-  height: 25px;
-  width: 25px;
+  justify-content: flex-start;
+  padding: 0.5rem 0.5rem;
+  border-bottom: 1px solid #dee2e6;
+} */
+
+.icon-menu {
+  height: 20px;
+  width: 20px;
   color: #444;
+  cursor: pointer;
 }
 
 .name-bar {
@@ -31,12 +42,11 @@
   color: #f17434;
 }
 
-
 @media screen and (max-width: 400px) {
-  .appBar {
+  /* .appBar {
     display: flex;
+  } */
 
-  }
   .name-bar {
     display: flex;
   }

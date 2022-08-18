@@ -1,16 +1,22 @@
-/* @import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
-@import url('https://fonts.googleapis.com/css?family=Open+Sans'); */
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
-.main-sidebar {
-  display: flex;
+.main-resbar {
+  display: none;
+  position: absolute;
   flex-direction: column;
   color: #C2C7CC;
   background: #343A40;
   height: 100vh;
+  transform: translateX(-100%);
+  transition: all 0.4s;
+  top: 0;
+  left: 0;
 }
-
-.brand-link {
+.main-resbar-show {
+  transform: translateX(0%);
+}
+.brand-link-resbar {
   flex-direction: row;
   display: flex;
   align-items: center;
@@ -21,7 +27,8 @@
   min-height: 50px;
   border-bottom: 1px solid #666;
 }
-.logo {
+
+.logo-resbar {
   height: 25px;
   width: 25px;
   background-color: white;
@@ -29,30 +36,22 @@
   padding: 5px;
   margin-left: 7px;
 }
-.name {
+.name-resbar {
   display: flex;
   font-size: 22px;
   color: white;
-}
-.name-mini {
-  display: none;
-}
-.divider {
-  height: 1px;
-  width: 100%;
-  background: #666;
-
+  
 }
 
-.sidebar {
+.resbar {
   width: 180px;
   padding: 0px 6px;
   color: #C2C7CC;
   height: 100vh;
-
 }
-.sidebar-mini {
-  width: 50px;
+
+.resbar-show {
+  transform: translateX(0%);
 }
 
 .link {
@@ -72,8 +71,6 @@
 }
 
 .active {
-  /* background: #f58434; */
-  /* background: #9ca3da; */
   background: white;
   color: #343A40;
 }
@@ -95,12 +92,7 @@
 }
 
 @media screen and (max-width: 700px) {
-  .main-sidebar {
-    display: none;
-
+  .main-resbar{
+    display: flex;
   }
-  .sidebar {
-    display: none;
-  }
-
 }

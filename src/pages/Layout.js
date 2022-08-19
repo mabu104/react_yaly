@@ -1,6 +1,7 @@
 import React, { useContext, useState, useMemo,useLayoutEffect,useEffect  } from "react";
 import { Navigate, Outlet } from 'react-router-dom'
 import SideBar from '../components/SideBar';
+import Backdrop from '../components/Backdrop';
 import ResponsiveNav from '../components/ResponsiveNav';
 import { UserContext } from '../contexts/UserContext';
 import { AiOutlineMenu } from "react-icons/ai";
@@ -24,8 +25,10 @@ export const Layout = () => {
       <div className="body-container">
         <a className="appBar">
           <AiOutlineMenu className="icon-menu" onClick={clickMenu}  ></AiOutlineMenu>
-        </a>      
+        </a>  
+        <Backdrop show={showSidebar} closeResbar={setShowSidebar}/>    
         <Outlet />
+        
         <ResponsiveNav show={showSidebar} setShow={setShowSidebar} />
       </div>
     </div>

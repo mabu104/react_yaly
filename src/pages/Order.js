@@ -6,9 +6,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import vi from 'date-fns/locale/vi';
 import { UserContext } from '../contexts/UserContext';
 import { AiOutlineSearch } from "react-icons/ai";
+import { FaRegCalendarAlt } from "react-icons/fa"
+// import daterangepicker from "../plugins/daterangepicker/daterangepicker";
+//import "../plugins/daterangepicker/daterangepicker.css";
+// import $ from 'jquery';
+import axios from '../utils/request';
+import  Moment  from "moment";
 
-
-import Moment from 'moment';
 const urlSearchOrder = 'http://192.168.1.7:8082/api/Order/GetListOrder/YALY1';
 registerLocale('vi', vi)
 
@@ -21,13 +25,16 @@ const Order = () => {
   const [toDate, setTotDate] = useState(new Date());
 
 
-  const handleClick = (id) => {
-    console.log(id);
+  const changeDateRange = (dates) => {
+    const [startDate, endDate] = dates;
+    setFromDate(startDate)
+    setTotDate(endDate)
   };
   const search = () => {
     fetchSearchOrder()
   }
   const fetchSearchOrder = async () => {
+    
     try {
       let dt = {
         "REC_SHOP": site.recShop,
@@ -37,45 +44,44 @@ const Order = () => {
         "FromDate": fromDate.toJSON(),
         "ToDate": toDate.toJSON()
       };
-      const response = await fetch(urlSearchOrder, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          //"Access-Control-Allow-Origin": "*"
-        },
-        body: JSON.stringify(dt)
-      });
-      let json = await response.json();
+      const response = await axios.post(urlSearchOrder, dt);
       if (response.status == 200) {
+        let json = response.data;
         setData(json)
       }
+      // const response = await fetch(urlSearchOrder, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Accept': 'application/json',
+      //     'Content-Type': 'application/json',
+      //     //"Access-Control-Allow-Origin": "*"
+      //   },
+      //   body: JSON.stringify(dt)
+      // });
+      // let json = await response.json();
+      // if (response.status == 200) {
+      //   setData(json)
+      // }
     } catch (e) {
-
+      console.log(e)
     }
   }
   return (
     <div className="order-container">
-      <div className="container-bar">
-        <div className="date-bar">
-          <p className='date-text'>Từ ngày </p>
-          <DatePicker
-            className='date-picker-container'
-            selected={fromDate}
-            locale="vi"
-            dateFormat="dd/MM/yyyy"
-            onChange={date => setFromDate(date)} />
+      <div className="input-group">
+        <div className="input-group-prepend">
+          <FaRegCalendarAlt></FaRegCalendarAlt>
         </div>
-        <div className="date-bar">
-          <p className='date-text'>Đến ngày </p>
-          <DatePicker
-            className='date-picker-container'
-            selected={toDate}
-            locale="vi"
-            dateFormat="dd/MM/yyyy"
-            onChange={date => setTotDate(date)} />
+        <div ><DatePicker className='input-date'
+          selected={fromDate}
+          startDate={fromDate}
+          endDate={toDate}
+          selectsRange
+          locale="vi"
+          dateFormat="dd/MM/yyyy"
+          onChange={changeDateRange} />
         </div>
-        <button className='search-button' onClick={search}>Tìm</button>
+        <button className="btn" onClick={search}>Tìm</button>
       </div>
       <table>
         <thead>
@@ -96,14 +102,12 @@ const Order = () => {
               <td >{Moment(contact.finisH_DATE).format('DD/MM/YYYY')}</td>
               <td>
                 <button
-                  onClick={() => handleClick(index)}
+                  // onClick={() => handleClick(index)}
                 // type="button"
                 >
                   Edit
                 </button>
-                <button type="button">
-                  Delete
-                </button>
+          
               </td>
             </tr>
           ))}
@@ -113,4 +117,3 @@ const Order = () => {
   );
 };
 export default Order;
-

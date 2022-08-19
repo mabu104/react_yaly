@@ -48,10 +48,10 @@ export default function Login() {
       const response = await axios.post(urlLogin, dt);
       if (response.status == 200) {
         let json = response.data;
-        // if (json.status != 1) {
-        //   setText('Tài khoản hoặc mật khẩu không đúng');
-        //   return;
-        // }
+        if (json.status != 1) {
+          setText('Tài khoản hoặc mật khẩu không đúng');
+          return;
+        }
         setLogged(true)
         var u = { name: json.name, no: json.no_, recSeller: json.rec_Seller, status: json.status }
         setUser(u)
@@ -78,10 +78,10 @@ export default function Login() {
   const getSite = (siteName) => {
     for (var i = 0; i < sites.length; i++) {
       if (sites[i].siteID == siteName) {
-        return { code: sites[i].siteID, id: sites[i].reC_SHOP, name: sites[i].shoP_NAME };
+        return { code: sites[i].siteID, recShop: sites[i].reC_SHOP, name: sites[i].shoP_NAME };
       }
     }
-    return { code: '', id: 0, name: '' };
+    return { code: '', recShop: 0, name: '' };
   }
 
   const getFullName = (str) => {

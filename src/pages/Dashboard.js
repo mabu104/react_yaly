@@ -56,8 +56,8 @@ export const Dashboard = () => {
   }
   return (
     <View style={{
-      alignItems: 'center', padding: 5,
-      flex: 1
+      alignItems: 'center', padding: 0,display:"flex",
+      flex: 1,height: "100vh"
     }}>
       <View style={[{ flexDirection: 'row', marginLeft: 5 }]} >
         <Text style={{ paddingTop: 5 }}>Từ ngày </Text>

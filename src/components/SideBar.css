@@ -1,5 +1,5 @@
-/* @import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
-@import url('https://fonts.googleapis.com/css?family=Open+Sans'); */
+ @import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans'); 
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 
 .main-sidebar {
@@ -16,7 +16,7 @@
   align-items: center;
   gap: 5px;
   padding-left: 5px;
-
+  cursor: pointer;
   height: 50px;
   min-height: 50px;
   border-bottom: 1px solid #666;
@@ -60,20 +60,20 @@
   color: #C2C7CC;
   padding: 7px 10px;
   gap: 10px;
-  transition: all 0.5s;
+  /* transition: all 0.5s; */
   border-radius: 5px;
   margin-top: 10px;
 }
 
 .link:hover {
   background: #494E53;
-  color: #fff;
-  transition: all 0.5s;
+  color: white;
+  /* background: white;
+  color: #343A40; */
+  /* transition: all 0.5s; */
 }
 
 .active {
-  /* background: #f58434; */
-  /* background: #9ca3da; */
   background: white;
   color: #343A40;
 }
@@ -86,7 +86,7 @@
 .link-text {
   font-size: 16px;
   top: 2rem;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   /* font-weight: 600; */
   display: inline-block;
 }

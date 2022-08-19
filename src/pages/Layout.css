@@ -8,6 +8,7 @@
   flex-direction: column;
   width: 100%;
   height: 100vh
+  
 }
 
 .appBar {
@@ -19,15 +20,6 @@
   padding: 7px 10px;
   border-bottom: 1px solid #dee2e6;
 }
-/* .navbar {
-  display: flex;
-  height: 40px;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 0.5rem 0.5rem;
-  border-bottom: 1px solid #dee2e6;
-} */
 
 .icon-menu {
   height: 20px;

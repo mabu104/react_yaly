@@ -1,0 +1,20 @@
+.backdrop {
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: none;
+    z-index: 10;
+}
+
+.backdrop--open {
+    display: none;
+}
+
+@media screen and (max-width: 700px) {
+    .backdrop--open {
+        display: block;
+    }
+}

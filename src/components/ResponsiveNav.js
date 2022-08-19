@@ -41,7 +41,7 @@ const ResponsiveNav = ({ show,setShow }) => {
     ]
     return (
         <div className={show?"main-resbar main-resbar-show":"main-resbar"}>
-            <div className="brand-link-resbar" onClick={click}>
+            <div className="brand-link-resbar">
                 <img src={logo} className='logo-resbar' />
                 <h1 className= "name">Yaly Couture</h1>
             </div>

@@ -12,6 +12,7 @@
   transition: all 0.4s;
   top: 0;
   left: 0;
+  z-index: 20;
 }
 .main-resbar-show {
   transform: translateX(0%);
@@ -22,7 +23,7 @@
   align-items: center;
   gap: 5px;
   padding-left: 5px;
-
+  cursor: pointer;
   height: 50px;
   min-height: 50px;
   border-bottom: 1px solid #666;

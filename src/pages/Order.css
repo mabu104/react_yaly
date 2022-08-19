@@ -1,49 +1,128 @@
 .order-container {
   display: flex;
   flex-direction: column;
-  /* padding: 5px; */
+  padding: 5px;
   /* flex: 1; */
   height: 100vh;
+  /* background: #ddd; */
 }
-.container-bar{
+
+.container-bar {
   margin-top: 10px;
   margin-bottom: 10px;
   display: flex;
   flex-direction: row;
 }
-.date-bar{
+
+.input-group {
+  flex-direction: row;
+  justify-content: center;
+  padding: 5px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 35px;
+}
+
+.input-group-prepend {
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 35px;
+  margin-right: -1px;
+  display: flex;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  background-color: rgb(233, 236, 239);
+  border: 1px solid #ced4da;
+  color: #495057;
+}
+
+.input-date {
+  height: 35px;
+  width: 180px;
+  border: 1px solid #ced4da;
+  font-size: 1rem;
+  color: #495057;
+  padding-left: 5px;
+  outline:none
+}
+.input-date:focus{
+  border-color: rgb(117, 201, 250);
+}
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  color: #fff;
+  text-align: center;
+  background-color: #007bff;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border: 1px solid #007bff;
+  height: 37px;
+  width: 40px ;
+  font-size: 1rem;
+}
+.btn:hover {
+  cursor: pointer;
+  background-color: #006aee;
+}
+
+.date-bar {
   display: flex;
   flex-direction: row;
 }
-.date-text{
-  padding-right:5px;
+
+.date-text {
+
   display: flex;
-  align-items:center;
+  align-items: center;
   width: 100%;
   font-size: 18px;
   font-family: sans-serif;
 }
 
 table {
+  padding: 5px;
+  display: table;
   border-collapse: collapse;
+  color: inherit;
   width: 100%;
+  text-indent: initial;
+    border-spacing: 2px;
+    border-color: grey;
+    white-space: nowrap!important;
+    background-color: transparent;
+    table-layout: fixed;
+    border: 1px solid #dee2e6;
+    box-sizing: border-box;
+}
+thead{
+  /* display: table-header-group;
+  vertical-align: middle;
+  border-color: inherit; */
 }
 
 th,
 td {
-  border: 1px solid #777;
+  border: 1px solid #ddd;
   text-align: left;
   padding: 8px;
   font-size: 18px;
   font-family: Verdana,
 }
 
+tbody {
+  display: table-row-group;
+  vertical-align: middle;
+  border-color: inherit;
+}
 th {
-  background-color: rgb(117, 201, 250);
+  /* background-color: rgb(117, 201, 250); */
 }
 
 td {
-  background-color: rgb(205, 235, 253);
+  /* background-color: rgb(205, 235, 253); */
 }
 
 form {
@@ -59,41 +138,36 @@ form td:last-child {
 form * {
   font-size: 18;
 }
+
 .row-date-picker-container {
   display: flex;
- 
+
   flex-direction: row;
   /* align-items: flex-start; */
   justify-content: flex-start;
 }
+
 .row-date-picker-container .react-datepicker-wrapper {
   margin: 12px 0;
   width: 50%;
 }
-.date-picker-container {
-  /* padding-left:5px; */
+
+/* .date-picker-container {
   height: 30px;
   width: 100px;
   color: #565d94;
   font-weight: 800;
   border-width: 0px;
-}
-.search-button {
-  font-size: 18px;
-  text-align: center;
-  width: 100px;
-  height: 30px;
-  border: none;
+} */
 
 
-  background-color: #999;
-}
 
 @media screen and (max-width: 500px) {
-  .date-bar{
+  .date-bar {
     flex-direction: column;
   }
-  .search-button {
+
+  /* .search-button {
     height: 40px;
-  }
+  } */
 }

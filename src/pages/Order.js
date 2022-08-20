@@ -1,17 +1,17 @@
 import React, { useMemo, useState, Fragment, useContext } from "react";
-
+import Table from 'react-bootstrap/Table';
 import "./Order.css"
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import vi from 'date-fns/locale/vi';
 import { UserContext } from '../contexts/UserContext';
 import { AiOutlineSearch } from "react-icons/ai";
-import { FaRegCalendarAlt } from "react-icons/fa"
+import { FaRegCalendarAlt,FaEdit } from "react-icons/fa"
 // import daterangepicker from "../plugins/daterangepicker/daterangepicker";
 //import "../plugins/daterangepicker/daterangepicker.css";
 // import $ from 'jquery';
 import axios from '../utils/request';
-import  Moment  from "moment";
+import Moment from "moment";
 
 const urlSearchOrder = 'http://192.168.1.7:8082/api/Order/GetListOrder/YALY1';
 registerLocale('vi', vi)
@@ -34,7 +34,7 @@ const Order = () => {
     fetchSearchOrder()
   }
   const fetchSearchOrder = async () => {
-    
+
     try {
       let dt = {
         "REC_SHOP": site.recShop,
@@ -82,33 +82,27 @@ const Order = () => {
           onChange={changeDateRange} />
         </div>
         <button className="btn" onClick={search}>Tìm</button>
-      </div>
+      </div>    
       <table>
         <thead>
           <tr>
+          <th className="th-index">#</th>
             <th>Mã</th>
             <th>Tên khách</th>
             <th>Sản phẩm </th>
             <th>Ngày HT </th>
-            <th></th>
+            <th className="th-icon"></th>
           </tr>
         </thead>
         <tbody>
           {data.map((contact, index) => (
             <tr key={contact.tickeT_CODE}>
-              <td >{contact.tickeT_CODE}</td>
-              <td >{contact.customeR_NAME}</td>
-              <td >{contact.producT_NAME}</td>
-              <td >{Moment(contact.finisH_DATE).format('DD/MM/YYYY')}</td>
-              <td>
-                <button
-                  // onClick={() => handleClick(index)}
-                // type="button"
-                >
-                  Edit
-                </button>
-          
-              </td>
+              <td>{index+1}</td>
+              <td>{contact.tickeT_CODE}</td>
+              <td>{contact.customeR_NAME}</td>
+              <td>{contact.producT_NAME}</td>
+              <td>{Moment(contact.finisH_DATE).format('DD/MM/YYYY')}</td>
+              <td><FaEdit className="td-icon"></FaEdit></td>
             </tr>
           ))}
         </tbody>

@@ -1,17 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
 .order-container {
   display: flex;
   flex-direction: column;
   padding: 5px;
-  /* flex: 1; */
+  flex: 1;
   height: 100vh;
-  /* background: #ddd; */
-}
-
-.container-bar {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  display: flex;
-  flex-direction: row;
+  background: #f4f4f4;
 }
 
 .input-group {
@@ -22,6 +18,7 @@
   display: flex;
   align-items: center;
   height: 35px;
+  margin-bottom: 10px;
 }
 
 .input-group-prepend {
@@ -45,11 +42,13 @@
   font-size: 1rem;
   color: #495057;
   padding-left: 5px;
-  outline:none
+  outline: none
 }
-.input-date:focus{
+
+.input-date:focus {
   border-color: rgb(117, 201, 250);
 }
+
 .btn {
   display: inline-block;
   font-weight: 400;
@@ -60,26 +59,13 @@
   border-bottom-right-radius: 5px;
   border: 1px solid #007bff;
   height: 37px;
-  width: 40px ;
+  width: 40px;
   font-size: 1rem;
 }
+
 .btn:hover {
   cursor: pointer;
   background-color: #006aee;
-}
-
-.date-bar {
-  display: flex;
-  flex-direction: row;
-}
-
-.date-text {
-
-  display: flex;
-  align-items: center;
-  width: 100%;
-  font-size: 18px;
-  font-family: sans-serif;
 }
 
 table {
@@ -89,27 +75,46 @@ table {
   color: inherit;
   width: 100%;
   text-indent: initial;
-    border-spacing: 2px;
-    border-color: grey;
-    white-space: nowrap!important;
-    background-color: transparent;
-    table-layout: fixed;
-    border: 1px solid #dee2e6;
-    box-sizing: border-box;
+  border-spacing: 2px;
+  white-space: nowrap !important;
+  background-color: white;
+  border: 1px solid #777;
+  box-sizing: border-box;
 }
-thead{
-  /* display: table-header-group;
+
+thead {
+  display: table-header-group;
   vertical-align: middle;
-  border-color: inherit; */
+  border-color: inherit;
 }
 
 th,
 td {
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   text-align: left;
   padding: 8px;
-  font-size: 18px;
-  font-family: Verdana,
+  font-size: 15px;
+  font-family: "OpenSans", sans-serif;
+}
+
+.th-icon {
+  width: 20px;
+}
+
+.th-index {
+  width: 30px;
+}
+
+.td-icon {
+  height: 19px;
+  width: 19px;
+  color: cornflowerblue;
+  cursor: pointer;
+  margin-left: 3px;
+}
+
+.td-icon:hover {
+  color: darkslateblue;
 }
 
 tbody {
@@ -117,8 +122,12 @@ tbody {
   vertical-align: middle;
   border-color: inherit;
 }
+
 th {
-  /* background-color: rgb(117, 201, 250); */
+  background-color: rgb(220, 225, 230);
+  /* color: white; */
+  font-family: "OpenSans", sans-serif;
+  font-size: 15px;
 }
 
 td {

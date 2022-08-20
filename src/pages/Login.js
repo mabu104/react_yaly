@@ -2,7 +2,8 @@
 import React, { useState, useContext, useMemo } from 'react'
 import logo from '../../src/images/logo.png';
 import { Navigate } from 'react-router-dom'
-import { MdPersonOutline, MdOutlineLock } from "react-icons/md"
+import { MdPersonOutline, MdOutlineLock,MdPerson,MdLock } from "react-icons/md"
+import { FaUserAlt, FaLock} from "react-icons/fa"
 import { UserContext } from '../contexts/UserContext';
 import axios from '../utils/request';
 import './Login.css'
@@ -119,20 +120,24 @@ export default function Login() {
   return (
     <div className='login-body'>
       <img src={logo} className='login-logo' />
-      <div >
-        <MdPersonOutline className='icon-input' />
+      <div className='login-input-group'>
+        <div className='login-input-group-prepend'>
+          <FaUserAlt className='icon-input' />
+        </div>
         <input
-          className='login-input'
+          className='login-form-control'
           type="text"
           value={userName}
           placeholder="Tài khoản"
           onChange={(e) => { onChangeUsername(e.target.value) }}>
         </input>
       </div>
-      <div >
-        <MdOutlineLock className='icon-input' />
+      <div className='login-input-group'>
+        <div className='login-input-group-prepend'>
+          <FaLock className='icon-input' />
+        </div>
         <input
-          className='login-input'
+          className='login-form-control'
           type="password"
           value={password}
           placeholder="Mật khẩu"

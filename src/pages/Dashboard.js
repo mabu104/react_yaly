@@ -9,11 +9,11 @@ import {
 } from 'chart.js';
 import { Bar, Doughnut } from "react-chartjs-2";
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
-import { MdInsertChartOutlined } from "react-icons/md";
+import { FaRegCalendarAlt } from "react-icons/fa";
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-
+import "./Dashboard.css"
 ChartJS.register(ArcElement, CategoryScale,
   LinearScale,
   BarElement,
@@ -28,6 +28,11 @@ export const Dashboard = () => {
   const [reportData, setData] = useState([]);
   const [fromDate, setFromDate] = useState(new Date());
   const [toDate, setTotDate] = useState(new Date());
+  const changeDateRange = (dates) => {
+    const [startDate, endDate] = dates;
+    setFromDate(startDate)
+    setTotDate(endDate)
+  };
   const search = () => {
     fetchData()
   }
@@ -55,88 +60,85 @@ export const Dashboard = () => {
     }
   }
   return (
-    <View style={{
-      alignItems: 'center', padding: 0,display:"flex",
-      flex: 1,height: "100vh"
-    }}>
-      <View style={[{ flexDirection: 'row', marginLeft: 5 }]} >
-        <Text style={{ paddingTop: 5 }}>Từ ngày </Text>
-        <View >
-          <DatePicker
-            className='date-picker-container'
-            selected={fromDate}
-            locale="vi"
-            dateFormat="dd/MM/yyyy"
-            onChange={date => setFromDate(date)} />
-        </View>
-        <Text style={{ paddingTop: 5, }}>Đến ngày </Text>
-        <View>
-          <DatePicker
-            className='date-picker-container'
-            selected={toDate}
-            locale="vi"
-            dateFormat="dd/MM/yyyy"
-            onChange={date => setTotDate(date)} />
-        </View>
-        <TouchableOpacity style={styles.button} onPress={search}>
-          <Text >Xem </Text>
-        </TouchableOpacity>
-      </View>
-      {reportData.length == 0 ? <div /> : (<div >
-        <Doughnut
-          data={{
-            labels: reportData.map(item => item.shopName),
-            datasets: [
-              {
-                backgroundColor: [
-                  "#3e95cd",
-                  "#8e5ea2",
-                  "#3cba9f",
-                  "#e8c3b9",
-                  "#f8b250",
-                  "#c45850",
-                ],
-                data: reportData.map(item => item.total),
-              }
-            ]
-          }}
-          options={{
-            plugins: {
-              legend: { display: true, position: 'top' },
-              datalabels: {
-                formatter: (value, context) => {
-                  const dataPoints = context.chart.data.datasets[0].data;
-                  function totalSum(total, dataPoint) {
-                    return total + dataPoint;
-                  }
-                  const totalValue = dataPoints.reduce(totalSum, 0);
-                  function totalPercent() {
-                    let percents = 0;
-                    for (let i = 0; i < dataPoints.length - 1; i++) {
-                      percents += parseFloat((dataPoints[i] / totalValue * 100).toFixed(1));
+    <div className="dashboard-container">
+      <div className="input-group">
+        <div className="input-group-prepend">
+          <FaRegCalendarAlt></FaRegCalendarAlt>
+        </div>
+        <div ><DatePicker className='input-date'
+          selected={fromDate}
+          startDate={fromDate}
+          endDate={toDate}
+          selectsRange
+          locale="vi"
+          dateFormat="dd/MM/yyyy"
+          onChange={changeDateRange} />
+        </div>
+        <button className="btn" onClick={search}>Tìm</button>
+      </div>
+      {reportData.length == 0 ? <div /> : (<div className="chart-container">
+        <div className="pie-container">
+          <Doughnut
+            data={{
+              labels: reportData.map(item => item.shopName),
+              datasets: [
+                {
+                  backgroundColor: [
+                    "#3e95cd",
+                    "#8e5ea2",
+                    "#3cba9f",
+                    "#e8c3b9",
+                    "#f8b250",
+                    "#c45850",
+                  ],
+                  data: reportData.map(item => item.total),
+                }
+              ]
+            }}
+            height={400}
+            width={350}
+            options={{
+              responsive: true,
+              maintainAspectRatio: true,
+              plugins: {
+                legend: { display: true, position: 'top' },
+                datalabels: {
+                  formatter: (value, context) => {
+                    const dataPoints = context.chart.data.datasets[0].data;
+                    function totalSum(total, dataPoint) {
+                      return total + dataPoint;
                     }
-                    return parseFloat((100 - percents).toFixed(1));
-                  }
-                  let percentTagetValue;
-                  if (value != dataPoints[dataPoints.length - 1]) {
-                    percentTagetValue = (value / totalValue * 100).toFixed(1);
-                  }
-                  else {
-                    percentTagetValue = totalPercent();
+                    const totalValue = dataPoints.reduce(totalSum, 0);
+                    function totalPercent() {
+                      let percents = 0;
+                      for (let i = 0; i < dataPoints.length - 1; i++) {
+                        percents += parseFloat((dataPoints[i] / totalValue * 100).toFixed(1));
+                      }
+                      return parseFloat((100 - percents).toFixed(1));
+                    }
+                    let percentTagetValue;
+                    if (value != dataPoints[dataPoints.length - 1]) {
+                      percentTagetValue = (value / totalValue * 100).toFixed(1);
+                    }
+                    else {
+                      percentTagetValue = totalPercent();
 
-                  }
-                  return `${percentTagetValue}%`;
-                },
+                    }
+                    return `${percentTagetValue}%`;
+                  },
 
-                //display: false,
-                color: '#ffffff'
+                  //display: false,
+                  color: '#ffffff'
+                }
+              },
+              title: {
+                display: false,
               }
-            },
-            title: {
-              display: false,
-            }
-          }}
-        />
+            }}
+          />
+        </div>
+
+
         <Bar
           data={{
             labels: reportData.map(item => item.shopName),
@@ -171,8 +173,7 @@ export const Dashboard = () => {
           }}
         />
       </div>)}
-
-    </View>
+    </div>
   );
 };
 
